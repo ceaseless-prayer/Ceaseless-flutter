@@ -24,8 +24,12 @@ matrix:
             - fonts-droid
       before_script:
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+        - gem install coveralls-lcov
+        - ./flutter/bin/flutter doctor
       script:
         - ./flutter/bin/flutter test
+      after_success:
+        - coveralls-lcov coverage/lcov.info
 
     # Builds an APK.
     - env: JOB=APK
